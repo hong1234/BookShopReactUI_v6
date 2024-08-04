@@ -7,23 +7,23 @@ const SearchForm = ({dispatch}) => {
 
   const [filterText, setFilterText] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.get(`${searchUrl}${filterText}`)
+    await axios.get(`${searchUrl}${filterText}`)
     .then(res => {
         // console.log(res.data.data)
         const dataset = {
-            data: res.data.data,
-            isSubmited: true,
-            showDetail: false,
-            showReviewForm: false
+          data: res.data.data,
+          isSubmited: true,
+          showDetail: false,
+          showReviewForm: false
         }
         dispatch({type: 'filter', payload: dataset});
         setFilterText('');
     })
     .catch(error => {
        throw(error);
-     });
+    });
 
   }
 

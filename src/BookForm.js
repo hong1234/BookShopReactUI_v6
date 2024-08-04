@@ -16,29 +16,32 @@ const BookForm = () => {
     setContentInput(e.currentTarget.value)
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     if(titleInput.trim() !== '' && contentInput.trim() !== ''){
       
 	    const book = {
-      	    title: titleInput,
-      	    content: contentInput
+      	title: titleInput,
+      	content: contentInput
     	};
 
     	const options = {
-      	    headers: { 'Content-Type': 'application/json' }
+      	headers: { 'Content-Type': 'application/json' }
     	};
 
-    	axios.post(`${addBookUrl}`, book, options)
-      	     .then(res => {
-                // console.log(res.data);
-                setTitleInput('');
-                setContentInput('');
-             })
+    	await axios.post(`${addBookUrl}`, book, options)
+      .then(res => {
+        // console.log(res.data);
+        setTitleInput('');
+        setContentInput('');
+      })
+      .catch(error => {
+        throw(error);
+      });
 
-    } else {
-	
+    } 
+    else {
     }
     
   }

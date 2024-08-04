@@ -20,7 +20,7 @@ const todosInitialState = {
       case 'showBook':
         return {...state, ...action.payload}
       case 'addReview':
-        return {...state, ...action.payload}
+        return {...state, showReviewForm: action.payload}
       case 'showReviewForm':
         return {...state, showReviewForm: action.payload}
       default:
@@ -39,11 +39,9 @@ function Shop() {
     if (state.isSubmited) {
         search_result = <BookList state={state} dispatch={dispatch} />;
     }
-
     if (state.showDetail) {
         item_detail = <BookDetail state={state} dispatch={dispatch} /> ;
     }
-
     if (state.showReviewForm) {
         review_form = <ReviewForm state={state} dispatch={dispatch}/> ;
     }
