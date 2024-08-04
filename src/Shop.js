@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+
 import ReviewForm from './ReviewForm';
 import SearchForm from './SearchForm';
 import BookList from './BookList';
@@ -12,22 +13,19 @@ const todosInitialState = {
     showReviewForm: false
 };
   
-  function shopReducer(state, action){ 
+  function shopReducer(state, action) { 
     switch(action.type){
       case 'filter':
         return {...state, ...action.payload}
       case 'showBook':
         return {...state, ...action.payload}
       case 'addReview':
-        return {...state, book: action.payload}
+        return {...state, ...action.payload}
       case 'showReviewForm':
-        return {...state, showReviewForm: action.payload}
-      case 'hideReviewForm':
         return {...state, showReviewForm: action.payload}
       default:
         return todosInitialState
     }
-
   }
 
 function Shop() {
@@ -55,7 +53,7 @@ function Shop() {
             <div className="row">
                 <div className="col-xs-12 col-sm-12 col-md-12">
                     <br/>
-                    <h2 className="d-block p-3 bg-secondary text-white">Book Shop</h2>
+                    <h2 className="d-block p-3 bg-secondary text-white">Book Store</h2>
                 </div>
             </div>
             <div className="row">

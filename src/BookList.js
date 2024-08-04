@@ -7,7 +7,6 @@ const BookList = ({state, dispatch}) => {
 
     const handleShowDetail = (current, event) => {
         event.preventDefault();
-
         axios.get(`${bookUrl}${current}`)
         .then(res => {
             // console.log(res.data.data)
@@ -28,7 +27,8 @@ const BookList = ({state, dispatch}) => {
         <div>
             <div className="d-block p-2 bg-secondary text-white"><h5>Books</h5></div>
             <div className="list-group">
-                { state.data.map((item, i) => <button key = {i} id={item.id} type="button" onClick={event => handleShowDetail(item.id, event)} className="list-group-item list-group-item-action">{item.title}</button>) }
+                {/* { state.data.map((item, i) => <button key = {i} id={item.id} type="button" onClick={event => handleShowDetail(item.id, event)} className="list-group-item list-group-item-action">{item.title}</button>) } */}
+                {state.data.map((item) => <button key={item.id} type="button" onClick={event => handleShowDetail(item.id, event)} className="list-group-item list-group-item-action">{item.title}</button>)}
             </div>
         </div>
     );

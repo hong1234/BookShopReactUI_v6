@@ -18,7 +18,6 @@ const SearchForm = ({dispatch}) => {
             showDetail: false,
             showReviewForm: false
         }
-
         dispatch({type: 'filter', payload: dataset});
         setFilterText('');
     })

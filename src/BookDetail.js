@@ -14,7 +14,8 @@ const BookDetail = ({state, dispatch}) => {
                     <p className="card-text">Content : {state.book.content}</p>
                     <button type="button" onClick={showReviewForm} className="btn btn-secondary">Add Review</button>
                     <h5 className="card-text">Reviews :</h5>
-                    {state.book.reviews.map((item, i) =><p key = {i} id={item.id} className="">{item.email} - {item.content}</p>)}
+                    {/* {state.book.reviews.map((item, i) =><p key = {i} id={item.id} className="">{item.email} - {item.content}</p>)} */}
+                    {state.book.reviews.map((item) =><p key={item.id} className="">{item.email} - {item.content}</p>)}
                 </div>
             </div>
         </div>
