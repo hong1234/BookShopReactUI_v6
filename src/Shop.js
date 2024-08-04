@@ -16,11 +16,9 @@ const todosInitialState = {
   function shopReducer(state, action) { 
     switch(action.type){
       case 'filter':
-        return {...state, ...action.payload}
       case 'showBook':
         return {...state, ...action.payload}
       case 'addReview':
-        return {...state, showReviewForm: action.payload}
       case 'showReviewForm':
         return {...state, showReviewForm: action.payload}
       default:
@@ -29,7 +27,6 @@ const todosInitialState = {
   }
 
 function Shop() {
-
     const [state, dispatch] = useReducer(shopReducer, todosInitialState)
 
     let search_result = <div></div>;
