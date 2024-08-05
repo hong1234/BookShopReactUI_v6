@@ -5,8 +5,8 @@ const bookUrl = 'http://localhost:8000/api/books/';
 
 const BookList = ({state, dispatch}) => {
 
-    const handleShowDetail = async (current) => {
-        await axios.get(`${bookUrl}${current}`)
+    const handleShowDetail = async (bookId) => {
+        await axios.get(`${bookUrl}${bookId}`)
         .then(res => {
             // console.log(res.data.data)
             const dataset = {
@@ -19,15 +19,13 @@ const BookList = ({state, dispatch}) => {
         .catch(error => {
             throw(error);
         });
-        
     }
 
     return (
         <div>
             <div className="d-block p-2 bg-secondary text-white"><h5>Books</h5></div>
             <div className="list-group">
-                {/* { state.data.map((item, i) => <button key = {i} id={item.id} type="button" onClick={event => handleShowDetail(item.id, event)} className="list-group-item list-group-item-action">{item.title}</button>) } */}
-                {state.data.map((item) => <button key={item.id} type="button" onClick={() => handleShowDetail(item.id)} className="list-group-item list-group-item-action">{item.title}</button>)}
+                {state.data.map((book) => <button key={book.id} type="button" onClick={() => handleShowDetail(book.id)} className="list-group-item list-group-item-action">{book.title}</button>)}
             </div>
         </div>
     );

@@ -1,11 +1,10 @@
 import React, { useReducer } from 'react';
-
 import ReviewForm from './ReviewForm';
 import SearchForm from './SearchForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
 
-const todosInitialState = {
+const shopInitialState = {
     data: [],
     book: {}, 
     isSubmited: false,
@@ -22,12 +21,12 @@ const todosInitialState = {
       case 'showReviewForm':
         return {...state, showReviewForm: action.payload}
       default:
-        return todosInitialState
+        return shopInitialState
     }
   }
 
 function Shop() {
-    const [state, dispatch] = useReducer(shopReducer, todosInitialState)
+    const [state, dispatch] = useReducer(shopReducer, shopInitialState)
 
     let search_result = <div></div>;
     let item_detail = <div></div>;

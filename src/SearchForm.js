@@ -24,7 +24,6 @@ const SearchForm = ({dispatch}) => {
     .catch(error => {
        throw(error);
     });
-
   }
 
   return (
