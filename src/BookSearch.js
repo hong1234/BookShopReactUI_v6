@@ -32,7 +32,7 @@ const BookSearch = ({dispatch}) => {
         setFilterText('');
         const dataset = {
             showDetail: false,
-            showReviewForm: false
+            // showReviewForm: false
         }
         dispatch({type: 'filter', payload: dataset})
     })
@@ -96,11 +96,11 @@ const BookSearch = ({dispatch}) => {
             <form onSubmit={handleSubmit} className="form-inline">
                 <div className="form-group">
                     <input
-                            type="text"
-                            value={filterText}
-                            onChange={event => setFilterText(event.target.value)}
-                            className="form-control"
-                            />
+                        type="text"
+                        value={filterText}
+                        onChange={event => setFilterText(event.target.value)}
+                        className="form-control"
+                        />
                     <button type="submit" className="btn btn-success"><b>Search</b></button>
                 </div>
             </form>

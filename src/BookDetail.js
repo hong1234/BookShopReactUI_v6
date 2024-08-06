@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const reviewUrl = 'http://localhost:8000/api/reviews/';
@@ -39,17 +39,21 @@ const BookDetail = ({book, dispatch}) => {
      
   }
 
+  useEffect(()=>{
+    setShowReviewForm(false);
+  },[book])
+
   let review_form = <div></div>;
 
   if (showReviewForm) {
     review_form = 
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label>Your Name:</label>
+        <label>Name:</label>
         <input type="text" className="form-control" name="name" value={nameInput} onChange={event => setNameInput(event.target.value)}/>
       </div>
       <div className="form-group">
-        <label>Your Email:</label>
+        <label>Email:</label>
         <input type="text" className="form-control" name="email" value={emailInput} onChange={event => setEmailInput(event.target.value)}/>
       </div>
       <div className="form-group">
