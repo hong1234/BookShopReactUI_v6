@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const reviewUrl = 'http://localhost:8000/api/reviews/';
 
-const ReviewForm = ({state, dispatch}) => {
+const ReviewForm = ({book, showReviewForm, dispatch}) => {
 
   const [nameInput, setNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
@@ -23,11 +23,11 @@ const ReviewForm = ({state, dispatch}) => {
           headers: { 'Content-Type': 'application/json' }
     	  };
 
-        await axios.post(`${reviewUrl}${state.book.id}`, review, options)
+        await axios.post(`${reviewUrl}${book.id}`, review, options)
         .then(res => {
         	// console.log(res.data.data);
-          state.book.reviews.push(res.data.data); // push review returned from server
-          dispatch({type: 'addReview', payload: !state.showReviewForm})
+          book.reviews.push(res.data.data); // push review returned from server
+          dispatch({type: 'addReview', payload: !showReviewForm})
       	})
       	.catch(error => {
           throw(error);

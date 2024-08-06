@@ -33,13 +33,13 @@ function Shop() {
     let review_form = <div></div>;
 
     if (state.isSubmited) {
-        search_result = <BookList state={state} dispatch={dispatch} />;
+        search_result = <BookList books={state.data} dispatch={dispatch} />;
     }
     if (state.showDetail) {
-        item_detail = <BookDetail state={state} dispatch={dispatch} /> ;
+        item_detail = <BookDetail book={state.book} showReviewForm={state.showReviewForm} dispatch={dispatch} /> ;
     }
     if (state.showReviewForm) {
-        review_form = <ReviewForm state={state} dispatch={dispatch}/> ;
+        review_form = <ReviewForm book={state.book} showReviewForm={state.showReviewForm} dispatch={dispatch}/> ;
     }
 
     return (
