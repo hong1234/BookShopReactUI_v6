@@ -31,7 +31,7 @@ const BookList = ({books, dispatch}) => {
     ? sortFunction(books).reverse()
     : sortFunction(books);
 
-    const handleShowDetail = async (bookId) => {
+    const showDetail = async (bookId) => {
         await axios.get(`${bookUrl}${bookId}`)
         .then(res => {
             // console.log(res.data.data)
@@ -55,7 +55,7 @@ const BookList = ({books, dispatch}) => {
                 <span><button type="button" onClick={() => handleSort('TITLE')}>sort by Title</button></span>
             </div>
             <div className="list-group">
-                {sortedList.map((book) => <button key={book.id} type="button" onClick={() => handleShowDetail(book.id)} className="list-group-item list-group-item-action">{book.title}</button>)}
+                {sortedList.map((book) => <button key={book.id} type="button" onClick={() => showDetail(book.id)} className="list-group-item list-group-item-action">{book.title}</button>)}
             </div>
         </div>
     );

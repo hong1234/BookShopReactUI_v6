@@ -9,7 +9,7 @@ const ReviewForm = ({book, showReviewForm, dispatch}) => {
   const [emailInput, setEmailInput] = useState('');
   const [contentInput, setContentInput] = useState(''); 
 
-  const handleSubmit = async event => {
+  const submitHandle = async event => {
     event.preventDefault();
 
     if(nameInput.trim() !== '' && emailInput.trim() !== '' && contentInput.trim() !== ''){
@@ -40,21 +40,22 @@ const ReviewForm = ({book, showReviewForm, dispatch}) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={submitHandle}>
           <div className="form-group">
-              <label>Your Name:</label>
-              <input type="text" className="form-control" name="name" onChange={event => setNameInput(event.target.value)} />
+              <label>Name:</label>
+              <input type="text" className="form-control" name="name" value={nameInput} onChange={event => setNameInput(event.target.value)} />
           </div>
           <div className="form-group">
-              <label>Your Email:</label>
-              <input type="text" className="form-control" name="email" onChange={event => setEmailInput(event.target.value)} />
+              <label>Email:</label>
+              <input type="text" className="form-control" name="email" value={emailInput} onChange={event => setEmailInput(event.target.value)} />
           </div>
           <div className="form-group">
               <label>Your Review:</label>
-              <input type="text" className="form-control" name="content" onChange={event => setContentInput(event.target.value)} />
+              <input type="text" className="form-control" name="content" value={contentInput} onChange={event => setContentInput(event.target.value)} />
           </div>
-          <button  type="submit" className="btn btn-primary">Add</button>
+          <button  type="submit" className="btn btn-primary">Add Review</button>
       </form>
+      <br/>
     </div>
   )
   

@@ -7,7 +7,7 @@ const SearchForm = ({dispatch}) => {
 
   const [filterText, setFilterText] = useState('');
 
-  const handleSubmit = async (e) => {
+  const submitHandle = async (e) => {
     e.preventDefault();
     await axios.get(`${searchUrl}${filterText}`)
     .then(res => {
@@ -27,7 +27,7 @@ const SearchForm = ({dispatch}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form-inline">
+    <form onSubmit={submitHandle} className="form-inline">
       <div className="form-group">
         <input
           type="text"
@@ -37,7 +37,7 @@ const SearchForm = ({dispatch}) => {
         />
       </div>
       <div className="form-group">
-        <button type="submit" className="btn btn-success"><b>Search</b></button>
+        <button type="submit" className="btn btn-primary">Search</button>
       </div>
     </form>
   )
