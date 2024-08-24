@@ -32,8 +32,9 @@ const BookList = ({books, dispatch}) => {
     : sortFunction(books);
 
     const showDetail = async (bookId) => {
-        await axios.get(`${bookUrl}${bookId}`)
-        .then(res => {
+
+        try {
+            const res = await axios.get(`${bookUrl}${bookId}`)
             // console.log(res.data.data)
             const dataset = {
                 book: res.data.data,
@@ -41,10 +42,11 @@ const BookList = ({books, dispatch}) => {
                 showReviewForm: false
             }
             dispatch({type: 'showBook', payload: dataset})
-        })
-        .catch(error => {
+                
+        } catch (error) {
             throw(error);
-        });
+        }
+
     }
 
     return (

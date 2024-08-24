@@ -9,21 +9,23 @@ const SearchForm = ({dispatch}) => {
 
   const submitHandle = async (e) => {
     e.preventDefault();
-    await axios.get(`${searchUrl}${filterText}`)
-    .then(res => {
-        // console.log(res.data.data)
-        const dataset = {
-          data: res.data.data,
-          isSubmited: true,
-          showDetail: false,
-          showReviewForm: false
-        }
-        dispatch({type: 'filter', payload: dataset});
-        setFilterText('');
-    })
-    .catch(error => {
-       throw(error);
-    });
+
+    try {
+      const res =  await axios.get(`${searchUrl}${filterText}`)
+      // console.log(res.data.data)
+      const dataset = {
+        data: res.data.data,
+        isSubmited: true,
+        showDetail: false,
+        showReviewForm: false
+      }
+      dispatch({type: 'filter', payload: dataset});
+      setFilterText('');
+
+    } catch (error) {
+      throw(error);
+    }
+
   }
 
   return (

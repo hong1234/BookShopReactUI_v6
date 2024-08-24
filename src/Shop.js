@@ -1,49 +1,39 @@
 import React, { useReducer } from 'react';
-import ReviewForm from './ReviewForm';
-import SearchForm from './SearchForm';
-import BookList from './BookList';
+
+import BookSearch from './BookSearch';
 import BookDetail from './BookDetail';
 
 const shopInitialState = {
-    data: [],
     book: {}, 
-    isSubmited: false,
-    showDetail: false,  
-    showReviewForm: false
+    showDetail: false
 };
   
-  function shopReducer(state, action) { 
-    switch(action.type){
-      case 'filter':
-      case 'showBook':
-        return {...state, ...action.payload}
-      case 'addReview':
-      case 'showReviewForm':
-        return {...state, showReviewForm: action.payload}
-      default:
-        return shopInitialState
-    }
-  }
+function shopReducer(state, action) { 
+  switch(action.type){
+      
+    case 'filter':
+    case 'showBook':
+      return {...state, ...action.payload}
 
-function Shop() {
+    case 'addReview':
+      state.book.reviews.push(action.payload);
+      return state;
+      
+    default:
+      return shopInitialState
+  }
+}
+
+function Shop() { 
+
     const [state, dispatch] = useReducer(shopReducer, shopInitialState)
 
-    let search_result = <div></div>;
-    let item_detail = <div></div>;
-    let review_form = <div></div>;
-
-    if (state.isSubmited) {
-        search_result = <BookList books={state.data} dispatch={dispatch} />;
-    }
+    let book_detail = <div></div>;
     if (state.showDetail) {
-        item_detail = <BookDetail book={state.book} showReviewForm={state.showReviewForm} dispatch={dispatch} /> ;
-    }
-    if (state.showReviewForm) {
-        review_form = <ReviewForm book={state.book} showReviewForm={state.showReviewForm} dispatch={dispatch}/> ;
+        book_detail = <BookDetail book={state.book} dispatch={dispatch} /> ;
     }
 
-    // console.log('shop rendering')
-
+    // console.log('shop redering')
     return (
         <div>
             <div className="row">
@@ -52,17 +42,12 @@ function Shop() {
                 </div>
             </div>
             <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-8">
-                    <SearchForm dispatch={dispatch}/>
-                </div>
-            </div>
-            <div className="row">
                 <div className="col-xs-12 col-sm-12 col-md-4">
-                    { search_result }
+                <BookSearch dispatch={dispatch}/>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-4">
-                    { review_form }
-                    { item_detail }
+                    { book_detail }
+                    <br/>
                 </div>
             </div>
         </div>

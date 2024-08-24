@@ -17,29 +17,60 @@ const SORTS = {
 const BookSearch = ({dispatch}) => {
     // search ----------
 
-  const [filterText, setFilterText] = useState('');
-  const [isSubmited, setIsSubmited] = useState(false);
-  const [books, setBooks] = useState([]);
+    const [filterText, setFilterText] = useState('');
+    const [isSubmited, setIsSubmited] = useState(false);
+    const [books, setBooks] = useState([]);
 
-  const submitSearchForm = async (e) => {
-    e.preventDefault();
+    const submitSearchForm = (e) => {
+        e.preventDefault();
 
-    await axios.get(`${searchUrl}${filterText}`)
-    .then(res => {
-        // console.log(res.data.data)
-        setIsSubmited(true);
-        setBooks(res.data.data);
-        setFilterText('');
-        const dataset = {
-            showDetail: false,
-            // showReviewForm: false
+        // axios.get(`${searchUrl}${filterText}`)
+        // .then(res => {
+        //     // console.log(res.data.data)
+        //     setIsSubmited(true);
+        //     setBooks(res.data.data);
+        //     setFilterText('');
+        //     const dataset = {
+        //         showDetail: false,
+        //         // showReviewForm: false
+        //     }
+        //     dispatch({type: 'filter', payload: dataset})
+        // })
+        // .catch(error => {
+        //    throw(error);
+        // });
+
+        fetchData();
+
+    }
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${searchUrl}${filterText}`);
+    
+            //   console.log(response.data);
+            //   console.log(response.status);
+            //   console.log(response.statusText);
+            //   console.log(response.headers);
+            //   console.log(response.config);
+
+            // console.log(response.data.data)
+            setIsSubmited(true);
+            setBooks(response.data.data);
+            setFilterText('');
+            const dataset = {
+                showDetail: false,
+                // showReviewForm: false
+            }
+            dispatch({type: 'filter', payload: dataset})
+    
+        } catch (error) {
+            // Handle error
+            console.error(error);
         }
-        dispatch({type: 'filter', payload: dataset})
-    })
-    .catch(error => {
-       throw(error);
-    });
-  }
+  
+    };
+  
 
     // book list ----------
 
@@ -59,20 +90,22 @@ const BookSearch = ({dispatch}) => {
     ? sortFunction(books).reverse()
     : sortFunction(books);
 
-    const handleShowDetail = async (bookId) => {
-        await axios.get(`${bookUrl}${bookId}`)
+    const showDetail = (bookId) => {
+
+        axios.get(`${bookUrl}${bookId}`)
         .then(res => {
             // console.log(res.data.data)
             const dataset = {
                 book: res.data.data,
                 showDetail: true,
-                showReviewForm: false
+                // showReviewForm: false
             }
             dispatch({type: 'showBook', payload: dataset})
         })
         .catch(error => {
             throw(error);
         });
+
     }
 
     let search_result = <div></div>;
@@ -86,7 +119,7 @@ const BookSearch = ({dispatch}) => {
                 <span><button type="button" onClick={() => handleSort('TITLE')}>sort by Title</button></span>
             </div>
             <div className="list-group">
-                {sortedList.map((book) => <button key={book.id} type="button" onClick={() => handleShowDetail(book.id)} className="list-group-item list-group-item-action">{book.title}</button>)}
+                {sortedList.map((book) => <button key={book.id} type="button" onClick={() => showDetail(book.id)} className="list-group-item list-group-item-action">{book.title}</button>)}
             </div>
         </div>;
     }

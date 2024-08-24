@@ -4,6 +4,7 @@ import axios from 'axios';
 const addBookUrl = 'http://localhost:8000/api/books';
 
 const BookForm = () => {
+
   const [titleInput, setTitleInput] = useState('');
   const [contentInput, setContentInput] = useState('');
 
@@ -16,32 +17,35 @@ const BookForm = () => {
   }
 
   const handleSubmit = async event => {
+
     event.preventDefault();
 
     if(titleInput.trim() !== '' && contentInput.trim() !== ''){
-	    const book = {
-      	title: titleInput,
-      	content: contentInput
-    	};
 
-    	const options = {
-      	headers: { 'Content-Type': 'application/json' }
-    	};
+        const book = {
+          title: titleInput,
+          content: contentInput
+        };
 
-    	await axios.post(`${addBookUrl}`, book, options)
-      .then(res => {
-        // console.log(res.data);
-        setTitleInput('');
-        setContentInput('');
-      })
-      .catch(error => {
-        throw(error);
-      });
+        const options = {
+          headers: { 'Content-Type': 'application/json' }
+        };
+
+        try {
+          const res = await axios.post(`${addBookUrl}`, book, options) 
+          // console.log(res.data);
+          setTitleInput('');
+          setContentInput(''); 
+
+        } catch (error) {
+          throw(error);
+        }
+
     } 
     else {
     }
-    
-  } 
+      
+  }
 
   return (
     <div>

@@ -10,6 +10,7 @@ const ReviewForm = ({book, showReviewForm, dispatch}) => {
   const [contentInput, setContentInput] = useState(''); 
 
   const submitHandle = async event => {
+
     event.preventDefault();
 
     if(nameInput.trim() !== '' && emailInput.trim() !== '' && contentInput.trim() !== ''){
@@ -23,15 +24,15 @@ const ReviewForm = ({book, showReviewForm, dispatch}) => {
           headers: { 'Content-Type': 'application/json' }
     	  };
 
-        await axios.post(`${reviewUrl}${book.id}`, review, options)
-        .then(res => {
-        	// console.log(res.data.data);
+        try {
+          const res =  await axios.post(`${reviewUrl}${book.id}`, review, options) 
+          // console.log(res.data.data);
           book.reviews.push(res.data.data); // push review returned from server
           dispatch({type: 'addReview', payload: !showReviewForm})
-      	})
-      	.catch(error => {
+
+        } catch (error) {
           throw(error);
-        });
+        }
     } 
     else {
     }
